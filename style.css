@@ -260,6 +260,7 @@ section p {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 25px;
+    
 }
 
 .skill-category h3 {
@@ -578,18 +579,6 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
 ::-moz-selection {
     background-color: rgba(57, 211, 83, 0.3);
     color: var(--text-bright);
-}
-
-.cursor-trail {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    box-shadow: 0 0 15px var(--accent-green);
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ============== RESPONSIVE ========== */

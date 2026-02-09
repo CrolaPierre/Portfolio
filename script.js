@@ -122,54 +122,7 @@ function createMatrixRain() {
 createMatrixRain();
 
 
-const trails = [];
-const trailCount = 6; 
 
-
-for (let i = 0; i < trailCount; i++) {
-    const trail = document.createElement('div');
-    trail.className = 'cursor-trail';
-    document.body.appendChild(trail);
-    trails.push({
-        element: trail,
-        x: 0,
-        y: 0
-    });
-}
-
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-
-function animateTrail() {
-    let x = mouseX;
-    let y = mouseY;
-    
-    trails.forEach((trail, index) => {
-        trail.x += (x - trail.x) * 0.2; 
-        trail.y += (y - trail.y) * 0.2;
-        
-        const scale = (trailCount - index) / trailCount;
-        const opacity = scale * 0.6;
-        
-        trail.element.style.left = (trail.x - 3) + 'px';
-        trail.element.style.top = (trail.y - 3) + 'px';
-        trail.element.style.transform = `scale(${scale})`;
-        trail.element.style.opacity = opacity;
-        
-        x = trail.x;
-        y = trail.y;
-    });
-    
-    requestAnimationFrame(animateTrail);
-}
-
-animateTrail();
 
 console.log('%c🚀 Portfolio Loaded Successfully!', 'color: #39d353; font-size: 16px; font-weight: bold;');
 console.log('%cBuilt with GitHub Hacker Theme', 'color: #58a6ff; font-size: 12px;');
