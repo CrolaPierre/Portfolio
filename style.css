@@ -1044,7 +1044,7 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
     padding: 0 12px 0 12px;
 }
 
-/* Top hazard stripe */
+
 .carousel-wrapper::before {
     content: '';
     position: absolute;
@@ -1058,7 +1058,7 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
     z-index: 3;
 }
 
-/* Fade edges */
+
 .carousel-wrapper::after {
     content: '';
     position: absolute;
@@ -1122,7 +1122,7 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
     box-shadow: 0 0 12px rgba(245, 230, 66, 0.2);
 }
 
-/* Yellow corner triangle */
+
 .car-card::before {
     content: '';
     position: absolute;
@@ -1148,21 +1148,15 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
     text-transform: uppercase;
 }
 
-/* Skill cards — yellow */
-/* DEV cards — yellow */
+
 .car-skill { border-left: 3px solid rgba(245, 230, 66, 0.5); }
 .car-skill .car-type  { color: var(--cp-yellow); }
 .car-skill .car-title { color: var(--text-primary); }
 
-/* DESIGN cards — cyan */
+
 .car-design { border-left: 3px solid rgba(74, 252, 255, 0.5); }
 .car-design .car-type  { color: var(--cp-cyan); }
 .car-design .car-title { color: var(--text-primary); }
-
-/* EDU cards — orange */
-.car-edu { border-left: 3px solid rgba(255, 107, 26, 0.5); }
-.car-edu .car-type  { color: var(--cp-orange); }
-.car-edu .car-title { color: var(--text-secondary); }
 
 /* =================== CAROUSEL =================== */
 
