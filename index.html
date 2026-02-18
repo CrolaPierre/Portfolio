@@ -36,6 +36,7 @@
         <div class="loader-corner br"></div>
     </div>
 
+
     <div class="container">
         <header>
             <h1 data-text="Crola Pierre">Crola Pierre</h1>
@@ -48,6 +49,51 @@
                 <a href="#contact">Contact</a>
             </nav>
         </header>
+    </div>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-label">DATA STREAM // COMPETENCES</div>
+        <div class="carousel-track-outer">
+            <div class="carousel-track" id="carousel-track">
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">UI Development</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">UX Design</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Responsive Design</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Front-End Dev</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Visual Identity</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Component Design</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">3D Modelling</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">API Integration</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Digital Illustration</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Version Control</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Photo Editing</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Cloud Deployment</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Motion &amp; Sound</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Back-End Dev</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Vector Graphics</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Containerisation</span></div>
+                <!-- Duplication pour que ce soit smooth -->
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">UI Development</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">UX Design</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Responsive Design</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Front-End Dev</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Visual Identity</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Component Design</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">3D Modelling</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">API Integration</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Digital Illustration</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Version Control</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Photo Editing</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Cloud Deployment</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Motion &amp; Sound</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Back-End Dev</span></div>
+                <div class="car-card car-design"><span class="car-type">DESIGN</span><span class="car-title">Vector Graphics</span></div>
+                <div class="car-card car-skill"><span class="car-type">DEV</span><span class="car-title">Containerisation</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
 
         <section id="about">
             <h2>à propos de moi</h2>
@@ -179,7 +225,7 @@
             </div>
         </section>
 
-    </div><!-- /.container -->
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -211,6 +257,52 @@
             </div>
         </div>
     </footer>
+
+
+    <!-- ========== GAME HUD ========== -->
+    <div id="hud">
+        <!-- Top bar -->
+        <div class="hud-edge hud-top">
+            <div class="hud-corner-tl">
+                <span class="hud-label">SYS</span>
+                <span class="hud-value" id="hud-clock">00:00:00</span>
+            </div>
+            <div class="hud-top-center">
+                <div class="hud-progress-bar">
+                    <div class="hud-progress-fill" id="hud-progress"></div>
+                </div>
+            </div>
+            <div class="hud-corner-tr">
+                <span class="hud-label">CROLA.P</span>
+                <span class="hud-value hud-blink">◆ ONLINE</span>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="hud-edge hud-bottom">
+            <div class="hud-corner-bl">
+                <span class="hud-label">CURSOR</span>
+                <span class="hud-value" id="hud-cursor">X:0000 Y:0000</span>
+            </div>
+            <div class="hud-bottom-center">
+                <span class="hud-label">LOCATION</span>
+                <span class="hud-value" id="hud-section">INIT</span>
+            </div>
+            <div class="hud-corner-br">
+                <span class="hud-label">SCROLL</span>
+                <span class="hud-value" id="hud-scroll-pct">000%</span>
+            </div>
+        </div>
+
+
+        <div class="hud-edge hud-left">
+            <div class="hud-side-line"></div>
+        </div>
+
+        <div class="hud-edge hud-right">
+            <div class="hud-side-line"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

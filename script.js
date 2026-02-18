@@ -1,5 +1,5 @@
 // Loader — CP2077 scan sequence
-(function () {
+function initLoader() {
     const loader   = document.getElementById('loader');
     const barFill  = document.getElementById('loader-bar');
     const pctEl    = document.getElementById('loader-pct');
@@ -7,15 +7,12 @@
     const statusEl = document.getElementById('ld-status');
     const clrEl    = document.getElementById('ld-clr');
 
-    let pct = 0;
-    const duration = 2200; // ms
-    const steps    = 80;
-    const interval = duration / steps;
+    if (!loader) return;
 
-    const statusSeq  = ['SCANNING', 'DETECTED', 'INDEXING', 'CONFIRMED'];
-    const clrSeq     = ['VERIFYING', 'PROCESSING', 'GRANTED'];
-    const idChars    = 'ABCDEF0123456789';
-    const finalId    = 'CROLA-P // MMI-3';
+    const statusSeq = ['SCANNING', 'DETECTED', 'INDEXING', 'CONFIRMED'];
+    const clrSeq    = ['VERIFYING', 'PROCESSING', 'GRANTED'];
+    const idChars   = 'ABCDEF0123456789';
+    const finalId   = 'CROLA-P // MMI-3';
 
     function randStr(len) {
         return Array.from({length: len}, () =>
@@ -23,34 +20,45 @@
         ).join('');
     }
 
-    const tick = setInterval(() => {
-        pct += 100 / steps + (Math.random() * 0.8 - 0.4);
-        pct  = Math.min(Math.round(pct), 100);
+    function dismissLoader() {
+        loader.classList.add('hidden');
+        setTimeout(() => {
+            if (loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 600);
+    }
 
-        barFill.style.width = pct + '%';
-        pctEl.textContent   = pct + '%';
+    // Animate progress over 2.5s then dismiss
+    const totalDuration = 2500;
+    let startTime = null;
 
-        // Identity scramble → resolve at 80%
-        if (pct < 80)  idEl.textContent = randStr(finalId.length);
-        else           idEl.textContent = finalId;
+    function tick(now) {
+        if (!startTime) startTime = now;
+        const elapsed = now - startTime;
+        const pct = Math.min(Math.round((elapsed / totalDuration) * 100), 100);
 
-        // Status sequence
-        const si = Math.floor((pct / 100) * statusSeq.length);
-        statusEl.textContent = statusSeq[Math.min(si, statusSeq.length - 1)];
+        if (barFill) barFill.style.width = pct + '%';
+        if (pctEl)   pctEl.textContent   = pct + '%';
 
-        // Clearance sequence
-        const ci = Math.floor((pct / 100) * clrSeq.length);
-        clrEl.textContent = clrSeq[Math.min(ci, clrSeq.length - 1)];
+        if (idEl)     idEl.textContent     = pct < 80 ? randStr(finalId.length) : finalId;
+        if (statusEl) statusEl.textContent = statusSeq[Math.min(Math.floor((pct / 100) * statusSeq.length), statusSeq.length - 1)];
+        if (clrEl)    clrEl.textContent    = clrSeq[Math.min(Math.floor((pct / 100) * clrSeq.length), clrSeq.length - 1)];
 
-        if (pct >= 100) {
-            clearInterval(tick);
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                setTimeout(() => loader.remove(), 600);
-            }, 300);
+        if (pct < 100) {
+            requestAnimationFrame(tick);
+        } else {
+            setTimeout(dismissLoader, 300);
         }
-    }, interval);
-})();
+    }
+
+    requestAnimationFrame(tick);
+}
+
+// Guarantee loader runs after DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLoader);
+} else {
+    initLoader();
+}
 
 // Smooth scroll for navigation links
 document.querySelectorAll('nav a').forEach(anchor => {
@@ -174,3 +182,69 @@ createMatrixRain();
 
 console.log('%c⚡ PORTFOLIO LOADED', 'color: #F5E642; font-size: 16px; font-weight: bold; font-family: monospace;');
 console.log('%cCyberpunk 2077 Theme — Night City never sleeps.', 'color: #FF6B1A; font-size: 12px; font-family: monospace;');
+
+// =================== GAME HUD ===================
+function initHUD() {
+    const clock      = document.getElementById('hud-clock');
+    const cursorEl   = document.getElementById('hud-cursor');
+    const sectionEl  = document.getElementById('hud-section');
+    const scrollPct  = document.getElementById('hud-scroll-pct');
+    const progressEl = document.getElementById('hud-progress');
+
+    const sectionNames = {
+        'about':        'ABOUT // CROLA.P',
+        'education':    'EDUCATION // RECORDS',
+        'projects':     'PROJECTS // WORKS',
+        'skills':       'SKILLS // DEV',
+        'skills-divers':'SKILLS // DESIGN',
+        'contact':      'CONTACT // LINK',
+    };
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        if (clock) clock.textContent = h + ':' + m + ':' + s;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Cursor coordinates
+    document.addEventListener('mousemove', (e) => {
+        if (!cursorEl) return;
+        const x = String(e.clientX).padStart(4, '0');
+        const y = String(e.clientY).padStart(4, '0');
+        cursorEl.textContent = 'X:' + x + ' Y:' + y;
+    });
+
+    // Scroll progress + current section
+    function updateScroll() {
+        const scrolled  = window.scrollY;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const pct       = maxScroll > 0 ? Math.round((scrolled / maxScroll) * 100) : 0;
+
+        if (scrollPct)  scrollPct.textContent  = String(pct).padStart(3, '0') + '%';
+        if (progressEl) progressEl.style.width = pct + '%';
+
+        // Find current section
+        let current = 'INIT';
+        document.querySelectorAll('section').forEach(section => {
+            if (window.scrollY >= section.offsetTop - 120) {
+                const id = section.getAttribute('id');
+                current = sectionNames[id] || id.toUpperCase();
+            }
+        });
+        if (sectionEl) sectionEl.textContent = current;
+    }
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHUD);
+} else {
+    initHUD();
+}
