@@ -956,7 +956,7 @@ footer::after {
     letter-spacing: 0.5px;
 }
 
-/* FIX: footer nav visible */
+
 .footer-nav {
     display: flex;
     flex-direction: column;
@@ -1157,11 +1157,6 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
 .car-design { border-left: 3px solid rgba(74, 252, 255, 0.5); }
 .car-design .car-type  { color: var(--cp-cyan); }
 .car-design .car-title { color: var(--text-primary); }
-
-/* =================== CAROUSEL =================== */
-
-
-
 /* =================== CAROUSEL =================== */
 
 .carousel-wrapper {
@@ -1292,7 +1287,7 @@ a, button, .btn, .btn-outline, .contact-btn, .project-card {
     z-index: 100;
 }
 
-/* ---- Shared edge styles ---- */
+
 .hud-edge {
     position: absolute;
     display: flex;
