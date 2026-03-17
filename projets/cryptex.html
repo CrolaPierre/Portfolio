@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptex — Crola Pierre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+
+    /* ════════════════════════════════════════════════
+       TOKENS — identical design system
+    ════════════════════════════════════════════════ */
+    :root {
+      --bg:             #09090b;
+      --surface:        #101013;
+      --surface-raised: #17171c;
+      --border:         #1e1e25;
+      --border-bright:  #2a2a34;
+
+      --text-dim:       #3e3e4a;
+      --text:           #84848f;
+      --text-bright:    #c4c3d0;
+      --white:          #edecea;
+
+      --accent:         #c9ff47;
+      --accent-soft:    rgba(201,255,71,0.06);
+      --accent-glow:    rgba(201,255,71,0.18);
+      --accent-border:  rgba(201,255,71,0.3);
+
+      --font-d: 'Syne', system-ui, sans-serif;
+      --font-h: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-m: 'DM Mono', 'Courier New', monospace;
+      --font-s: 'Instrument Serif', Georgia, serif;
+
+      --r: 4px; --rl: 10px;
+      --max: 1100px;
+      --px: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    * { cursor: none !important; }
+    body {
+      font-family: var(--font-d); background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      cursor: none; overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 99px; }
+    h1, h2, h3 { font-family: var(--font-d); color: var(--white); letter-spacing: -0.03em; line-height: 1; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── CURSOR — rotating diamond ── */
+    .cursor {
+      position: fixed; width: 20px; height: 20px;
+      border: 1.5px solid var(--white);
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%) rotate(45deg);
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1),
+                  height 0.4s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.45s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor.hov {
+      width: 32px; height: 32px;
+      transform: translate(-50%,-50%) rotate(0deg);
+      border-color: var(--accent);
+    }
+    .cursor-dot {
+      position: fixed; width: 3px; height: 3px;
+      background: var(--accent);
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%); mix-blend-mode: difference;
+    }
+
+    /* ── GRAIN ── */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 8000; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; inset: 0 0 auto 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--px); height: 54px;
+      background: rgba(9,9,11,0.84); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-d); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--white);
+      transition: color 0.2s;
+    }
+    .logo span { color: var(--accent); }
+    .logo:hover { color: var(--accent); }
+    .back {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-m); font-size: 0.7rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text); transition: color 0.2s;
+    }
+    .back::before { content: '←'; font-size: 0.9rem; }
+    .back:hover { color: var(--accent); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.72rem 1.4rem; font-family: var(--font-d);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border-radius: var(--r); border: none; cursor: none;
+      transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.25s;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--accent); color: #09090b; }
+    .btn-primary:hover { background: #d8ff62; box-shadow: 0 0 36px var(--accent-glow); }
+    .btn-ghost {
+      background: transparent; color: var(--text-bright);
+      border: 1px solid var(--border-bright);
+    }
+    .btn-ghost:hover { border-color: var(--accent-border); color: var(--accent); }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrap {
+      max-width: var(--max); margin: 0 auto;
+      padding: calc(54px + clamp(3.5rem,7vh,6rem)) var(--px) clamp(4rem,8vh,7rem);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header { margin-bottom: clamp(3rem,6vw,5rem); }
+    .ph-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: var(--font-m); font-size: 0.6rem;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .ph-eyebrow::before {
+      content: ''; display: inline-block; width: 1.4rem; height: 1px; background: var(--accent);
+    }
+    .page-header h1 {
+      font-family: var(--font-h);
+      font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 400; line-height: 0.9;
+      letter-spacing: 0.05em; margin-bottom: 1.2rem;
+    }
+    .page-header h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--white);
+    }
+    .page-subtitle {
+      font-family: var(--font-m); font-size: 0.75rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--text);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent 0%, var(--border-bright) 20%, var(--border-bright) 80%, transparent 100%);
+      margin-bottom: clamp(3rem,6vw,4.5rem);
+    }
+
+    /* ── MAIN GRID ── */
+    .proj-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem,5vw,6rem); align-items: start;
+    }
+
+    /* ── LEFT — info ── */
+    .info-side { display: flex; flex-direction: column; gap: 2.5rem; }
+    .info-block { display: flex; flex-direction: column; gap: 0.9rem; }
+    .info-block-lbl {
+      font-family: var(--font-m); font-size: 0.58rem;
+      letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .info-block-lbl::before { content: ''; width: 1rem; height: 1px; background: var(--accent); }
+    .info-block p {
+      font-size: 0.9rem; color: var(--text-bright); line-height: 1.85;
+    }
+    .info-block p + p { margin-top: 0.75rem; }
+
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .tech-pill {
+      padding: 0.35rem 0.9rem; background: var(--surface);
+      border: 1px solid var(--border-bright); border-radius: 99px;
+      font-size: 0.74rem; font-weight: 500; color: var(--text-bright);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .tech-pill:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-soft); }
+
+    /* metadata row */
+    .meta-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--rl); overflow: hidden;
+    }
+    .meta-item {
+      background: var(--surface); padding: 1rem 1.25rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .meta-item .m-lbl {
+      font-family: var(--font-m); font-size: 0.55rem;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .meta-item .m-val {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-bright);
+    }
+
+    /* ── RIGHT — preview ── */
+    .preview-side {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      position: sticky; top: 5rem;
+    }
+    .preview-lbl {
+      font-family: var(--font-m); font-size: 0.58rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .preview-frame {
+      display: block; width: 100%; aspect-ratio: 16/10;
+      background: var(--surface-raised);
+      border: 1px solid var(--border); border-radius: var(--rl);
+      overflow: hidden; position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .preview-frame:hover {
+      border-color: var(--accent-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-border);
+      transform: translateY(-4px);
+    }
+    .preview-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+      font-family: var(--font-m); font-size: 0.65rem; letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+    .preview-inner .pi-icon {
+      font-size: 2rem; color: var(--border-bright);
+      transition: color 0.2s, transform 0.3s;
+    }
+    .preview-frame:hover .preview-inner .pi-icon {
+      color: var(--accent); transform: translate(3px,-3px);
+    }
+    .preview-frame:hover .preview-inner { color: var(--accent); }
+
+    .preview-url {
+      font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.06em;
+      color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .preview-actions { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.3rem; }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.85s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.22s; }
+    .d3 { transition-delay: 0.36s; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.7rem var(--px);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ft-name {
+      font-family: var(--font-m); font-size: 0.62rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .ft-r { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.12em; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 740px) {
+      .proj-layout { grid-template-columns: 1fr; }
+      .preview-side { position: static; }
+      .page-header h1 { font-size: clamp(3rem,14vw,5rem); }
+      .page-header h1 .outline { -webkit-text-stroke-width: 1.5px; }
+      .meta-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── PAGE TRANSITION strips ── */
+    #page-transition {
+      position: fixed; inset: 0; z-index: 9500;
+      pointer-events: none; display: flex; flex-direction: column;
+    }
+    .pt-strip { flex: 1; background: #111114; transform: translateX(102%); will-change: transform; }
+    .pt-strip.from-left { transform: translateX(-102%); }
+    .pt-strip.exit { transition: transform 0.42s cubic-bezier(0.76,0,0.24,1); transform: translateX(0%) !important; }
+    .pt-strip.enter { transform: translateX(0%) !important; }
+    .pt-strip.enter.go-right { transition: transform 0.48s cubic-bezier(0.76,0,0.24,1); transform: translateX(102%) !important; }
+    .pt-strip.enter.go-left  { transition: transform 0.48s cubic-bezier(0.76,0,0.24,1); transform: translateX(-102%) !important; }
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cdot"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="page-transition"></div>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <a href="../index.html" class="logo">PC<span>.</span></a>
+    <a href="../index.html#projects" class="back">Retour aux projets</a>
+  </header>
+
+  <!-- ══ CONTENT ══ -->
+  <div class="page-wrap">
+
+    <!-- page header -->
+    <div class="page-header">
+      <p class="ph-eyebrow reveal">Projet Web — SAE 203</p>
+      <h1 class="reveal d1">
+        Crypt<span class="outline">ex</span>
+      </h1>
+      <p class="page-subtitle reveal d2">Dashboard de suivi de cryptomonnaies en temps réel</p>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <!-- main grid -->
+    <div class="proj-layout">
+
+      <!-- LEFT — info -->
+      <div class="info-side">
+
+        <div class="meta-row reveal">
+          <div class="meta-item">
+            <span class="m-lbl">Contexte</span>
+            <span class="m-val">SAE 203 — BUT MMI</span>
+          </div>
+          <div class="meta-item">
+            <span class="m-lbl">Établissement</span>
+            <span class="m-val">IUT de Troyes</span>
+          </div>
+          <div class="meta-item">
+            <span class="m-lbl">Type</span>
+            <span class="m-val">Application Web</span>
+          </div>
+          <div class="meta-item">
+            <span class="m-lbl">Année</span>
+            <span class="m-val">2025</span>
+          </div>
+        </div>
+
+        <div class="info-block reveal d1">
+          <span class="info-block-lbl">Description</span>
+          <p>
+            Cryptex est une application web permettant de suivre les cours des cryptomonnaies en temps réel.
+            Le projet repose sur la consommation d'une API publique pour récupérer dynamiquement les données
+            de marché et les afficher dans une interface claire et réactive.
+          </p>
+          <p>
+            L'accent a été mis sur la lisibilité des données, la mise à jour en temps réel
+            et une expérience utilisateur fluide sans rechargement de page.
+          </p>
+        </div>
+
+        <div class="info-block reveal d2">
+          <span class="info-block-lbl">Technologies utilisées</span>
+          <div class="tech-list">
+            <span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3</span>
+            <span class="tech-pill">JavaScript</span>
+            <span class="tech-pill">REST API</span>
+            <span class="tech-pill">Fetch API</span>
+            <span class="tech-pill">JSON</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT — preview -->
+      <div class="preview-side reveal d1">
+        <span class="preview-lbl">Aperçu du projet</span>
+
+        <a href="https://sae203.mmi25b05.mmi-troyes.fr/" target="_blank" rel="noopener" class="preview-frame">
+          <!-- Uncomment when screenshot available: -->
+          <!-- <img src="../pictures/cryptex-preview.png" alt="Aperçu Cryptex"> -->
+          <div class="preview-inner">
+            <span class="pi-icon">↗</span>
+            <span>Voir le site</span>
+          </div>
+        </a>
+
+        <span class="preview-url">sae203.mmi25b05.mmi-troyes.fr</span>
+
+        <div class="preview-actions">
+          <a href="https://sae203.mmi25b05.mmi-troyes.fr/" target="_blank" rel="noopener" class="btn btn-primary">
+            Visiter le site ↗
+          </a>
+          <a href="dossier_analyse_cryptex (1).pdf.pdf" target="_blank" class="btn btn-ghost">
+            Dossier d'analyse (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <span class="ft-name">Crola Pierre</span>
+    <span class="ft-r">2025 · BUT MMI · IUT de Troyes</span>
+  </footer>
+
+  <script>
+    /* ── PAGE TRANSITION enter ── */
+    const transEl = document.getElementById('page-transition');
+    const N = 7, STAGGER = 38;
+    if (transEl) {
+      for (let i = 0; i < N; i++) {
+        const s = document.createElement('div');
+        s.className = 'pt-strip' + (i % 2 === 0 ? '' : ' from-left');
+        transEl.appendChild(s);
+      }
+    }
+    if (transEl && sessionStorage.getItem('pt')) {
+      sessionStorage.removeItem('pt');
+      const strips = [...transEl.querySelectorAll('.pt-strip')];
+      strips.forEach(s => s.classList.add('enter'));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        strips.forEach((s, i) => {
+          setTimeout(() => s.classList.add(i % 2 === 0 ? 'go-right' : 'go-left'), i * STAGGER);
+        });
+      }));
+    }
+
+    /* ── CURSOR ── */
+    const cur = document.getElementById('cursor');
+    const dot = document.getElementById('cdot');
+    let mx = 0, my = 0, cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px';
+      cur.style.top  = my + 'px';
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+    document.querySelectorAll('a, button, .tech-pill').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+    });
+    (function loop() {
+      cx += (mx - cx) * 0.13;
+      cy += (my - cy) * 0.13;
+      requestAnimationFrame(loop);
+    })();
+
+    /* ── REVEAL ── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page introuvable · Crola Pierre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg:             #09090b;
+      --surface:        #101013;
+      --surface-raised: #17171c;
+      --border:         #1e1e25;
+      --border-bright:  #2a2a34;
+      --text-dim:       #3e3e4a;
+      --text:           #84848f;
+      --text-bright:    #c4c3d0;
+      --white:          #edecea;
+      --accent:         #c9ff47;
+      --accent-soft:    rgba(201,255,71,0.06);
+      --accent-glow:    rgba(201,255,71,0.18);
+      --accent-border:  rgba(201,255,71,0.3);
+      --font-d: 'Syne', system-ui, sans-serif;
+      --font-h: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-m: 'DM Mono', 'Courier New', monospace;
+      --r: 4px; --rl: 10px;
+      --px: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    body.light {
+      --bg:             #f4f3ef;
+      --surface:        #eceae4;
+      --surface-raised: #e3e1da;
+      --border:         #d4d1c8;
+      --border-bright:  #bbb8ae;
+      --text-dim:       #9a9890;
+      --text:           #5a5850;
+      --text-bright:    #2e2c28;
+      --white:          #1a1916;
+      --accent:         #7ab800;
+      --accent-soft:    rgba(122,184,0,0.08);
+      --accent-glow:    rgba(122,184,0,0.20);
+      --accent-border:  rgba(122,184,0,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { cursor: none !important; }
+
+    body {
+      font-family: var(--font-d);
+      background: var(--bg); color: var(--text);
+      min-height: 100svh; display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased; overflow: hidden;
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      position: fixed; width: 20px; height: 20px;
+      border: 1.5px solid var(--white); pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%) rotate(45deg);
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1),
+                  height 0.4s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.45s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor.hov { width: 32px; height: 32px; transform: translate(-50%,-50%) rotate(0deg); border-color: var(--accent); }
+    .cursor-dot {
+      position: fixed; width: 3px; height: 3px; background: var(--accent);
+      pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+      mix-blend-mode: difference;
+    }
+
+    /* ── GRAIN ── */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 8000; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; inset: 0 0 auto 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--px); height: 54px;
+      background: rgba(9,9,11,0.84); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    body.light header { background: rgba(244,243,239,0.84); }
+    .logo {
+      font-family: var(--font-d); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--white); text-decoration: none; transition: color 0.2s;
+    }
+    .logo span { color: var(--accent); }
+    .logo:hover { color: var(--accent); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 0 var(--px) clamp(3rem, 6vh, 5rem);
+      padding-top: 54px; position: relative;
+      max-width: 1100px; width: 100%; margin: 0 auto;
+    }
+
+    /* huge 404 background number */
+    .bg-number {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-h);
+      font-size: clamp(18rem, 40vw, 36rem);
+      line-height: 1; letter-spacing: -0.02em;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border-bright);
+      pointer-events: none; user-select: none;
+      animation: drift 8s ease-in-out infinite;
+    }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50%       { transform: translateY(-12px) rotate(0.5deg); }
+    }
+
+    /* foreground content */
+    .content { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: var(--font-m); font-size: 0.6rem;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .eyebrow::before { content: ''; width: 1.4rem; height: 1px; background: var(--accent); display: inline-block; }
+
+    h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 400; letter-spacing: 0.04em; line-height: 0.95;
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+
+    .desc {
+      font-family: var(--font-m); font-size: 0.75rem;
+      letter-spacing: 0.08em; color: var(--text);
+      max-width: 380px; line-height: 1.75; margin-bottom: 2.5rem;
+    }
+
+    .actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.72rem 1.4rem; font-family: var(--font-d);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border-radius: var(--r); border: none; text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.25s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--accent); color: #09090b; }
+    .btn-primary:hover { background: #d8ff62; box-shadow: 0 0 36px var(--accent-glow); }
+    .btn-ghost {
+      background: transparent; color: var(--text-bright);
+      border: 1px solid var(--border-bright);
+    }
+    .btn-ghost:hover { border-color: var(--accent-border); color: var(--accent); }
+
+    /* glitch scanlines on 404 bg */
+    .bg-number::after {
+      content: attr(data-text);
+      position: absolute;
+      clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+      color: var(--accent);
+      opacity: 0.06;
+      animation: glitch 4s infinite;
+    }
+    @keyframes glitch {
+      0%, 85%, 100% { transform: translate(0); }
+      87%           { transform: translate(-4px, 2px); }
+      89%           { transform: translate(4px, -2px); }
+      91%            { transform: translate(-2px); }
+    }
+
+    /* ── THEME TOGGLE ── */
+    #theme-toggle {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 9000;
+      width: 44px; height: 44px;
+      background: var(--surface-raised); border: 1px solid var(--border-bright);
+      border-radius: var(--r); color: var(--text); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.3s;
+    }
+    #theme-toggle:hover { border-color: var(--accent-border); color: var(--accent); }
+    #theme-toggle.spinning { transform: rotate(180deg); }
+    #theme-ripple {
+      position: fixed; z-index: 8500; pointer-events: none;
+      border-radius: 50%; transform: scale(0);
+      width: 120px; height: 120px; margin: -60px 0 0 -60px;
+      transition: transform 0.65s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease;
+      opacity: 0;
+    }
+    #theme-ripple.expand { transform: scale(30); opacity: 1; }
+    #theme-ripple.fade   { opacity: 0; }
+
+    /* page enter animation */
+    .content > * {
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .content .eyebrow { animation-delay: 0.1s; }
+    .content h1       { animation-delay: 0.22s; }
+    .content .desc    { animation-delay: 0.34s; }
+    .content .actions { animation-delay: 0.46s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cdot"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html" class="logo">PC<span>.</span></a>
+  </header>
+
+  <main>
+    <div class="bg-number" aria-hidden="true" data-text="404">404</div>
+    <div class="content">
+      <p class="eyebrow">Erreur — Page introuvable</p>
+      <h1>Cette page<br>n'existe pas.</h1>
+      <p class="desc">
+        Tu t'es perdu quelque part dans le vide.<br>
+        La page que tu cherches a peut-être été déplacée, supprimée, ou n'a jamais existé.
+      </p>
+      <div class="actions">
+        <a href="index.html" class="btn btn-primary">Retour à l'accueil →</a>
+        <a href="index.html#projects" class="btn btn-ghost">Voir les projets</a>
+      </div>
+    </div>
+  </main>
+
+  <button id="theme-toggle" aria-label="Changer de thème">☀︎</button>
+  <div id="theme-ripple"></div>
+
+  <script>
+    /* cursor */
+    const cur = document.getElementById('cursor');
+    const dot = document.getElementById('cdot');
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+      dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+    });
+
+    /* theme toggle */
+    const btn    = document.getElementById('theme-toggle');
+    const ripple = document.getElementById('theme-ripple');
+    let isLight  = localStorage.getItem('theme') === 'light';
+    let lastX = window.innerWidth / 2, lastY = window.innerHeight / 2;
+    document.addEventListener('mousemove', e => { lastX = e.clientX; lastY = e.clientY; });
+
+    function applyTheme(light, animate) {
+      ripple.style.left = lastX + 'px'; ripple.style.top = lastY + 'px';
+      ripple.style.background = light ? '#f4f3ef' : '#09090b';
+      ripple.style.transform  = 'scale(0)'; ripple.style.opacity = '1';
+      ripple.classList.remove('expand','fade');
+      if (animate) {
+        requestAnimationFrame(() => {
+          ripple.classList.add('expand');
+          setTimeout(() => {
+            document.body.classList.toggle('light', light);
+            btn.textContent = light ? '☽' : '☀︎';
+            btn.classList.add('spinning');
+            setTimeout(() => btn.classList.remove('spinning'), 320);
+            ripple.classList.add('fade');
+            setTimeout(() => { ripple.style.transform = 'scale(0)'; ripple.classList.remove('expand','fade'); }, 600);
+          }, 320);
+        });
+      } else {
+        document.body.classList.toggle('light', light);
+        btn.textContent = light ? '☽' : '☀︎';
+      }
+    }
+    applyTheme(isLight, false);
+    btn.addEventListener('click', () => {
+      isLight = !isLight;
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      applyTheme(isLight, true);
+    });
+  </script>
+
+</body>
+</html>

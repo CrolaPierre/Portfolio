@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crola Pierre — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div id="loader-inner">
+      <p id="loader-eyebrow">Portfolio · 2025</p>
+      <div id="loader-name">
+        <span class="lc-wrap"><span class="lc-box" data-char="C">C</span></span><span class="lc-wrap"><span class="lc-box" data-char="R">R</span></span><span class="lc-wrap"><span class="lc-box" data-char="O">O</span></span><span class="lc-wrap"><span class="lc-box" data-char="L">L</span></span><span class="lc-wrap"><span class="lc-box" data-char="A">A</span></span><span class="lsp">&nbsp;</span><span class="lc-wrap"><span class="lc-box" data-char="P">P</span></span><span class="lc-wrap"><span class="lc-box" data-char="I">I</span></span><span class="lc-wrap"><span class="lc-box" data-char="E">E</span></span><span class="lc-wrap"><span class="lc-box" data-char="R">R</span></span><span class="lc-wrap"><span class="lc-box" data-char="R">R</span></span><span class="lc-wrap"><span class="lc-box" data-char="E">E</span></span>
+      </div>
+    </div>
+    <div id="loader-bar"><div id="loader-fill"></div></div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cdot"></div>
+  <div id="cursor-label"></div>
+
+  <!-- GRAIN -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- PAGE TRANSITION -->
+  <div id="page-transition"></div>
+
+  <!-- ══ HEADER ══════════════════════════════════════ -->
+  <header>
+    <a href="#" class="logo">PC<span>.</span></a>
+    <nav>
+      <a href="#about"   data-i18n="nav-about">À propos</a>
+      <a href="#skills"  data-i18n="nav-skills">Compétences</a>
+      <a href="#projects"data-i18n="nav-projects">Projets</a>
+      <a href="#contact" data-i18n="nav-contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ══ HERO ════════════════════════════════════════ -->
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <span class="hero-badge">Portfolio ↗ 2025</span>
+        <span class="hero-year">BUT MMI · IUT de Troyes</span>
+      </div>
+      <h1 class="hero-name" id="hero-name">
+        <span class="l1"><span class="c">C</span><span class="c">r</span><span class="c">o</span><span class="c">l</span><span class="c">a</span></span>
+        <span class="l2"><span class="c">P</span><span class="c">i</span><span class="c">e</span><span class="c">r</span><span class="c">r</span><span class="c">e</span></span>
+      </h1>
+      <div class="hero-rule"></div>
+      <div class="hero-foot">
+        <p class="hero-sub" data-i18n="hero-sub">Développeur &nbsp;·&nbsp; Designer &nbsp;·&nbsp; Dessinateur</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary" data-i18n="btn-projects">Voir mes projets →</a>
+          <a href="#contact"  class="btn btn-ghost"   data-i18n="btn-contact">Me contacter</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-line">
+      <span data-i18n="scroll">Défiler</span>
+    </div>
+  </section>
+
+  <!-- ══ MARQUEE ══════════════════════════════════════ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee-track">
+      <div class="m-item" data-i18n-marquee="dev">Développeur<span class="mdot"></span></div>
+      <div class="m-item">Designer<span class="mdot"></span></div>
+      <div class="m-item" data-i18n-marquee="draw">Dessinateur<span class="mdot"></span></div>
+      <div class="m-item">BUT MMI<span class="mdot"></span></div>
+      <div class="m-item">IUT de Troyes<span class="mdot"></span></div>
+      <div class="m-item">HTML · CSS · JS<span class="mdot"></span></div>
+      <div class="m-item">Vue.js<span class="mdot"></span></div>
+      <div class="m-item">Blender<span class="mdot"></span></div>
+      <div class="m-item">Krita<span class="mdot"></span></div>
+      <!-- duplicate -->
+      <div class="m-item" data-i18n-marquee="dev">Développeur<span class="mdot"></span></div>
+      <div class="m-item">Designer<span class="mdot"></span></div>
+      <div class="m-item" data-i18n-marquee="draw">Dessinateur<span class="mdot"></span></div>
+      <div class="m-item">BUT MMI<span class="mdot"></span></div>
+      <div class="m-item">IUT de Troyes<span class="mdot"></span></div>
+      <div class="m-item">HTML · CSS · JS<span class="mdot"></span></div>
+      <div class="m-item">Vue.js<span class="mdot"></span></div>
+      <div class="m-item">Blender<span class="mdot"></span></div>
+      <div class="m-item">Krita<span class="mdot"></span></div>
+    </div>
+  </div>
+
+  <!-- ══ ABOUT ════════════════════════════════════════ -->
+  <section id="about">
+    <div class="inner">
+      <div class="photo-col reveal">
+        <div class="photo-frame">[Photo]</div>
+        <span class="photo-tag" data-i18n="photo-tag">01 — À propos</span>
+      </div>
+      <div class="about-col">
+        <p class="label reveal" data-i18n="about-label">À propos de moi</p>
+        <h2 class="section-h reveal d1" data-i18n-html="about-h2">À propos<br>de moi</h2>
+        <blockquote class="pull reveal d2" data-i18n="quote">
+          "Je vois le web comme une expérience que l'on doit apprécier, non comme une page vide que l'on doit subir."
+        </blockquote>
+        <p class="reveal d3" data-i18n="about-p1">
+          Bienvenue sur mon portfolio ! Je suis un étudiant passionné qui aime créer et innover dans le cadre de projets personnels et professionnels.
+        </p>
+        <p class="reveal d3" data-i18n="about-p2">
+          Je fais de mon mieux pour avoir un code propre et une expérience utilisateur des plus agréables.
+        </p>
+        <a href="" class="btn btn-ghost reveal d4" style="width:fit-content; margin-top:0.5rem;" data-i18n="cv-btn">[Télécharger CV]</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══ SKILLS ═══════════════════════════════════════ -->
+  <section id="skills">
+    <div class="inner">
+      <p class="label reveal" data-i18n="skills-label">02 — Compétences</p>
+      <h2 class="section-h reveal d1" data-i18n="skills-h2">Compétences</h2>
+      <div class="skill-grid reveal d2">
+        <div class="skill-col">
+          <span class="skill-col-lbl">Frontend</span>
+          <div class="pill-list">
+            <span class="pill">HTML5</span>
+            <span class="pill">CSS3</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Vue.js</span>
+          </div>
+        </div>
+        <div class="skill-col">
+          <span class="skill-col-lbl" data-i18n="backend-lbl">Backend &amp; Outils</span>
+          <div class="pill-list">
+            <span class="pill">Node.js</span>
+            <span class="pill">Python</span>
+            <span class="pill">Git</span>
+            <span class="pill">Docker</span>
+            <span class="pill">AWS</span>
+          </div>
+        </div>
+        <div class="skill-col">
+          <span class="skill-col-lbl" data-i18n="design-lbl">Design &amp; Création</span>
+          <div class="pill-list">
+            <span class="pill">Krita</span>
+            <span class="pill">Photoshop</span>
+            <span class="pill">Illustrator</span>
+            <span class="pill">Blender</span>
+            <span class="pill">Audition</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══ PROJECTS ══════════════════════════════════════ -->
+  <section id="projects">
+    <div class="inner">
+      <p class="label reveal" data-i18n="projects-label">03 — Projets</p>
+      <h2 class="section-h reveal d1" data-i18n="projects-h2">Projets</h2>
+      <div class="project-grid reveal d2">
+
+        <!-- featured -->
+        <div class="proj-card feat">
+          <a href="projets/cryptex.html" class="proj-thumb">
+            <span class="thumb-hover" data-i18n="thumb-preview">Aperçu projet</span>
+            <span class="proj-arrow">↗</span>
+          </a>
+          <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
+            <div class="proj-body">
+              <span class="proj-num">01 / 03</span>
+              <h3>Cryptex</h3>
+              <p data-i18n="cryptex-desc">Dashboard de suivi de cryptomonnaies en temps réel via API. Accent sur la lisibilité des données et une expérience utilisateur fluide sans rechargement de page.</p>
+              <div class="proj-tags">
+                <span class="proj-tag">JavaScript</span>
+                <span class="proj-tag">REST API</span>
+                <span class="proj-tag">Fetch API</span>
+                <span class="proj-tag">JSON</span>
+              </div>
+            </div>
+            <div class="proj-foot">
+              <a href="projets/cryptex.html" class="btn btn-ghost" style="font-size:0.74rem;padding:0.45rem 1rem;" data-i18n="view-project">Voir le projet →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 2 -->
+        <div class="proj-card">
+          <a href="" class="proj-thumb">
+            <span class="thumb-hover" data-i18n="thumb-preview2">Aperçu</span>
+            <span class="proj-arrow">↗</span>
+          </a>
+          <div class="proj-body">
+            <span class="proj-num">02 / 03</span>
+            <h3 data-i18n="proj2-name">Projet Deux</h3>
+            <p data-i18n="proj2-desc">Emplacement réservé pour un futur projet.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">[Tag]</span>
+              <span class="proj-tag">[Tag]</span>
+            </div>
+          </div>
+          <div class="proj-foot">
+            <a href="" class="btn btn-ghost" style="font-size:0.74rem;padding:0.45rem 1rem;" data-i18n="view-btn">Voir →</a>
+          </div>
+        </div>
+
+        <!-- card 3 -->
+        <div class="proj-card">
+          <a href="" class="proj-thumb">
+            <span class="thumb-hover" data-i18n="thumb-preview2">Aperçu</span>
+            <span class="proj-arrow">↗</span>
+          </a>
+          <div class="proj-body">
+            <span class="proj-num">03 / 03</span>
+            <h3 data-i18n="proj3-name">Projet Trois</h3>
+            <p data-i18n="proj3-desc">Emplacement réservé pour un futur projet.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">[Tag]</span>
+              <span class="proj-tag">[Tag]</span>
+            </div>
+          </div>
+          <div class="proj-foot">
+            <a href="" class="btn btn-ghost" style="font-size:0.74rem;padding:0.45rem 1rem;" data-i18n="view-btn">Voir →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══ CONTACT ══════════════════════════════════════ -->
+  <section id="contact">
+    <div class="inner">
+      <p class="label reveal">04 — Contact</p>
+      <h2 class="section-h reveal d1" data-i18n="contact-h2">Contactez moi</h2>
+      <div class="contact-email-wrap reveal d2">
+        <span class="contact-email-lbl">Email</span>
+        <a href="mailto:crolaP30@gmail.com" class="contact-email">
+          crolaP30@gmail.com
+        </a>
+      </div>
+      <div class="social-row reveal d3">
+        <a href="https://github.com/CrolaPierre" target="_blank" rel="noopener" class="soc-link">
+          GitHub <span class="arr">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/pierre-crola-9a34913ab/" target="_blank" rel="noopener" class="soc-link">
+          LinkedIn <span class="arr">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════ -->
+  <footer>
+    <span class="ft-name">Crola Pierre</span>
+    <span class="ft-r">2025 · BUT MMI · IUT de Troyes</span>
+  </footer>
+
+  <button id="lang-toggle" aria-label="Switch language">EN</button>
+  <div id="lang-ripple"></div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
