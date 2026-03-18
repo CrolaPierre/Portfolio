@@ -434,6 +434,11 @@ function triggerKonami() {
       'proj3-desc':     'Emplacement réservé pour un futur projet.',
       'view-btn':       'Voir →',
       'contact-h2':     'Contactez moi',
+      'avail-status':     'Ouvert aux opportunités',
+      'avail-sub':        'BUT MMI 2ème année · IUT de Troyes',
+      'avail-tag-contract': 'Stage',
+      'avail-tag-location': 'Troyes · Remote OK',
+      'avail-cta':        'Me contacter →',
       'marquee-dev':    'Développeur',
       'marquee-draw':   'Dessinateur',
     },
@@ -469,6 +474,11 @@ function triggerKonami() {
       'proj3-desc':     'Placeholder for a future project.',
       'view-btn':       'View →',
       'contact-h2':     'Get in touch',
+      'avail-status':     'Open to opportunities',
+      'avail-sub':        'BUT MMI 2nd year · IUT de Troyes',
+      'avail-tag-contract': 'Internship',
+      'avail-tag-location': 'Troyes · Remote OK',
+      'avail-cta':        'Get in touch →',
       'marquee-dev':    'Developer',
       'marquee-draw':   'Illustrator',
     }
@@ -537,6 +547,17 @@ function triggerKonami() {
     applyLang(lang, true);
   });
 })();
+
+/* ════════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+════════════════════════════════════════════════ */
+const scrollBar = document.getElementById('scroll-bar');
+if (scrollBar) {
+  document.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    scrollBar.style.width = (window.scrollY / max * 100) + '%';
+  }, { passive: true });
+}
 
 /* ════════════════════════════════════════════════
    SCROLL REVEAL
