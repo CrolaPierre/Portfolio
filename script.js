@@ -435,7 +435,7 @@ function triggerKonami() {
       'view-btn':       'Voir →',
       'contact-h2':     'Contactez moi',
       'avail-status':     'Ouvert aux opportunités',
-      'avail-sub':        'BUT MMI 2ème année · IUT de Troyes',
+      'avail-sub':        'BUT MMI 1ère année · IUT de Troyes',
       'avail-tag-contract': 'Stage',
       'avail-tag-location': 'Troyes · Remote OK',
       'avail-cta':        'Me contacter →',
