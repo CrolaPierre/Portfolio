@@ -461,8 +461,10 @@ blockquote.pull {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-m); font-size: 0.65rem; letter-spacing: 0.1em;
-  color: var(--text-dim); background: var(--surface-raised);
+  color: var(--text-dim); background: rgba(0,0,0,0.45);
+  opacity: 0; transition: opacity 0.2s;
 }
+.proj-thumb:hover .thumb-hover { opacity: 1; }
 .proj-arrow {
   position: absolute; top: 0.9rem; right: 0.9rem;
   font-size: 1.1rem; color: var(--border-bright);
