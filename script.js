@@ -259,7 +259,7 @@ if (canvas) {
       for (let col = 0; col < cols - 1; col++) {
         const a = pts[row][col], b = pts[row][col + 1];
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = 'rgba(30,30,37,0.45)'; ctx.lineWidth = 0.5; ctx.stroke();
+        ctx.strokeStyle = 'rgba(30,30,37,0.75)'; ctx.lineWidth = 0.5; ctx.stroke();
       }
 
     // vertical lines
@@ -267,7 +267,7 @@ if (canvas) {
       for (let row = 0; row < rows - 1; row++) {
         const a = pts[row][col], b = pts[row + 1][col];
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = 'rgba(30,30,37,0.45)'; ctx.lineWidth = 0.5; ctx.stroke();
+        ctx.strokeStyle = 'rgba(30,30,37,0.75)'; ctx.lineWidth = 0.5; ctx.stroke();
       }
 
     // dots
